@@ -1,0 +1,106 @@
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Traceback (most recent call last):
+  File "train_ppo.py", line 200, in <module>
+    torch.nn.utils.clip_grad_norm_(policy.parameters(), grad_eps) # added
+  File "/zhome/09/9/144141/.local/lib/python3.8/site-packages/torch/nn/utils/clip_grad.py", line 38, in clip_grad_norm_
+    if clip_coef < 1:
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "train_ppo.py", line 161, in <module>
+    for batch in generator:
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 109, in get_generator
+    returns = self.returns.reshape(-1)[indices].cuda()
+KeyboardInterrupt
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Traceback (most recent call last):
+  File "train_ppo.py", line 99, in <module>
+    obs = random_cutout(obs,12,24)
+NameError: name 'random_cutout' is not defined
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+Traceback (most recent call last):
+  File "train_ppo.py", line 127, in <module>
+    next_obs[:], reward, done, info = env.step(action)
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 257, in step
+    return self.step_wait()
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 530, in step_wait
+    obs, reward, done, info = self.venv.step_wait()
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 512, in step_wait
+    obs, reward, done, info = self.venv.step_wait()
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 497, in step_wait
+    obs, reward, done, info = self.venv.step_wait()
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 465, in step_wait
+    obs, rews, news, infos = self.venv.step_wait()
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 338, in step_wait
+    obs, rews, dones, infos = self.venv.step_wait()
+  File "/zhome/09/9/144141/.local/lib/python3.8/site-packages/gym3/interop.py", line 324, in step_wait
+    return ob, rew, first, self.env.get_info()
+  File "/zhome/09/9/144141/.local/lib/python3.8/site-packages/gym3/libenv.py", line 366, in get_info
+    info = self._maybe_copy_dict(self._info)
+  File "/zhome/09/9/144141/.local/lib/python3.8/site-packages/gym3/libenv.py", line 291, in _maybe_copy_dict
+    result[name] = arr.copy()
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "train_ppo.py", line 121, in <module>
+    action, log_prob, value = policy.act(obs)
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/models_ppo.py", line 96, in act
+    return action.cpu(), log_prob.cpu(), value.cpu()
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "train_ppo.py", line 161, in <module>
+    for batch in generator:
+  File "/zhome/09/9/144141/Desktop/Deep_l_hpc/nik_utils.py", line 105, in get_generator
+    obs = self.obs[:-1].reshape(-1, *self.obs_shape)[indices].cuda()
+KeyboardInterrupt
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
