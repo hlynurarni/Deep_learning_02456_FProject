@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#BSUB -J sd_i_rc_db
+#BSUB -J sd_n_mx_sp
 
 #BSUB -q gpuv100
 
@@ -12,9 +12,9 @@
 
 #BSUB -R "rusage[mem=16GB]"
 
-#BSUB -o sd_i_rc_db.out
+#BSUB -o sd_n_mx_sp.out
 
-#BSUB -e sd_i_rc_db.err
+#BSUB -e sd_n_mx_sp.err
 
 # Load modules
 
@@ -31,6 +31,6 @@ pip3 install --user torch matplotlib procgen gym
 #mixreg: 0 = False, 1 = True 
 #type of game
 
-python3 train_ppo.py sd_i_rc_db 0 2 0 dodgeball
+python3 train_ppo.py sd_n_mx_sp 1 0 1 starpilot
 
 

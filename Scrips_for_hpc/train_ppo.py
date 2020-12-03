@@ -10,7 +10,7 @@ from models_ppo import ResidualBlock, Empala_Encoder, Policy
 from data_aug import grayscale, color_jitter, random_cutout
 from time import time
 from TransformLayer import ColorJitterLayer
-
+from torch.distributions import Beta
 
 
 # Hyperparameters
@@ -30,10 +30,11 @@ encoder_type_indnex = ["Impala","Nature"]
 data_aug_index = ['none','grayscale','random_cutout','color_jitter']
 encoder_type = encoder_type_indnex[int(inp[1])] # 0 = Impala, 1 = Nature
 data_aug = data_aug_index[int(inp[2])]
-lambda_mix = .95
 tof = [False,True]
 do_mixreg = tof[int(inp[3])]
 game = inp[4]
+beta_dist = Beta(torch.FloatTensor([0.2]), torch.FloatTensor([0.2]))
+
 print("Run name",model_name)
 print("Encoder used",encoder_type)
 print("Augumentation used",data_aug)
@@ -46,6 +47,7 @@ transform_module = nn.Sequential(ColorJitterLayer(brightness=0.4,
                                                   p=1.0, 
                                                   batch_size=num_envs,
                                                   stack_size=1))
+
 
 # Define environment
 # check the utils.py file for info on arguments
@@ -161,17 +163,22 @@ while step < total_steps:
     for batch in generator:
       b_obs, b_action, b_log_prob, b_value, b_returns, b_advantage = batch
 
-      if do_mixreg: 
-        index_ij = torch.randint(0, batch_size-1, (batch_size,2))
-        b_obs = lambda_mix*b_obs[index_ij[:,0]] + (1-lambda_mix)*b_obs[index_ij[:,1]]
-        b_log_prob = lambda_mix*b_log_prob[index_ij[:,0]] + (1-lambda_mix)*b_log_prob[index_ij[:,1]]
-        b_value = lambda_mix*b_value[index_ij[:,0]] + (1-lambda_mix)*b_value[index_ij[:,1]]
-        b_returns = lambda_mix*b_returns[index_ij[:,0]] + (1-lambda_mix)*b_returns[index_ij[:,1]]
-        b_advantage = lambda_mix*b_advantage[index_ij[:,0]] + (1-lambda_mix)*b_advantage[index_ij[:,1]]
-        if (lambda_mix >= 0.5):
-          b_action = b_action[index_ij[:,0]]
-        else:
-          b_action = b_action[index_ij[:,1]]
+      if do_mixreg:
+          b_obs_c, b_action_c, b_log_prob_c, b_value_c, b_returns_c, b_advantage_c = batch
+          lambda_mix = beta_dist.sample((batch_size,)).cuda()
+          index_ij = torch.randint(0, batch_size-1, (batch_size,2))
+          for ii,jj in enumerate(index_ij):
+            b_obs_c[ii] = lambda_mix[ii]*b_obs[jj[0]] + (1-lambda_mix[ii])*b_obs[jj[1]]
+            b_log_prob_c[ii] = lambda_mix[ii]*b_log_prob[jj[0]] + (1-lambda_mix[ii])*b_log_prob[jj[1]]
+            b_value_c[ii] = lambda_mix[ii]*b_value[jj[0]] + (1-lambda_mix[ii])*b_value[jj[1]]
+            b_returns_c[ii] = lambda_mix[ii]*b_returns[jj[0]] + (1-lambda_mix[ii])*b_returns[jj[1]]
+            b_advantage_c[ii] = lambda_mix[ii]*b_advantage[jj[0]] + (1-lambda_mix[ii])*b_advantage[jj[1]]
+            if (lambda_mix[ii] >= 0.5):
+              b_action_c[ii] = b_action[jj[0]]
+            else:
+              b_action_c[ii] = b_action[jj[1]]
+          b_obs, b_action, b_log_prob, b_value, b_returns, b_advantage = b_obs_c, b_action_c, b_log_prob_c, b_value_c, b_returns_c, b_advantage_c
+          
 
       # Get current policy outputs
       new_dist, new_value = policy(b_obs)
@@ -204,13 +211,13 @@ while step < total_steps:
       optimizer.zero_grad()
 
   # Update stats
-  mean_rewards.append(storage.get_reward())
+  mean_rewards.append(storage.get_reward(normalized_reward=False))
   done_reward = sum((sum(storage.reward)/(sum(storage.done)+1)))/num_envs
 
   # TODO: If you never die implement an if statement that doesn't include the plus 1
   mean_rewards_done.append(done_reward)
   step += num_envs * num_steps
-  print(f'Step: {step}\tMean reward: {storage.get_reward()}, \tMean reward done: {done_reward}')
+  print(f'Step: {step}\tMean reward: {storage.get_reward(normalized_reward=False)}, \tMean reward done: {done_reward}')
   if first_loop:
     end = time()
     time_total = end-start
