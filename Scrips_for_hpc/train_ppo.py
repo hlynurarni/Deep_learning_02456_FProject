@@ -194,7 +194,7 @@ while step < total_steps:
       # Clipped value function objective
       clipped_value = b_value + (new_value - b_value).clamp(min=-eps, max=eps) # added
       # value_loss = (new_value - b_value)**2 # added
-      value_loss = 0.5 * torch.max((b_value - b_returns) ** 2, (clipped_value - b_returns) **2).mean() # added
+      value_loss = 0.5 * torch.max((new_value - b_returns) ** 2, (clipped_value - b_returns) **2).mean() # added
 
       # Entropy loss
       entropy_loss = -new_dist.entropy().mean() # added
