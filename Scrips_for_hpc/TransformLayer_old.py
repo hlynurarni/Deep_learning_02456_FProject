@@ -1,6 +1,3 @@
-#Trying to adjust the size of the random sample we are changing
-# taken from: https://github.com/MishaLaskin/rad/blob/1246bfd6e716669126e12c1f02f393801e1692c1/TransformLayer.py#L87
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -86,7 +83,7 @@ def hsv2rgb(hsv):
     rgb = rgb.to(_device)
 
     return torch.clamp(rgb, 0, 1)
-
+    
 class ColorJitterLayer(nn.Module):
     def __init__(self, brightness=0, contrast=0, saturation=0, hue=0, p=0, batch_size=128, stack_size=3):
         super(ColorJitterLayer, self).__init__()
@@ -127,7 +124,7 @@ class ColorJitterLayer(nn.Module):
                 torch tensor image: Brightness adjusted
         """
         _device = x.device
-        factor = torch.empty(len(x), device=_device).uniform_(*self.contrast)
+        factor = torch.empty(self.batch_size, device=_device).uniform_(*self.contrast)
         factor = factor.reshape(-1,1).repeat(1, self.stack_size).reshape(-1)
         means = torch.mean(x, dim=(2, 3), keepdim=True)
         return torch.clamp((x - means)
@@ -135,7 +132,7 @@ class ColorJitterLayer(nn.Module):
     
     def adjust_hue(self, x):
         _device = x.device
-        factor = torch.empty(len(x), device=_device).uniform_(*self.hue)
+        factor = torch.empty(self.batch_size, device=_device).uniform_(*self.hue)
         factor = factor.reshape(-1,1).repeat(1, self.stack_size).reshape(-1)
         h = x[:, 0, :, :]
         h += (factor.view(len(x), 1, 1) * 255. / 360.)
@@ -155,7 +152,7 @@ class ColorJitterLayer(nn.Module):
                 torch tensor image: Brightness adjusted
         """
         _device = x.device
-        factor = torch.empty(len(x), device=_device).uniform_(*self.brightness)
+        factor = torch.empty(self.batch_size, device=_device).uniform_(*self.brightness)
         factor = factor.reshape(-1,1).repeat(1, self.stack_size).reshape(-1)
         x[:, 2, :, :] = torch.clamp(x[:, 2, :, :]
                                      * factor.view(len(x), 1, 1), 0, 1)
@@ -173,7 +170,7 @@ class ColorJitterLayer(nn.Module):
                 torch tensor image: Brightness adjusted
         """
         _device = x.device
-        factor = torch.empty(len(x), device=_device).uniform_(*self.saturation)
+        factor = torch.empty(self.batch_size, device=_device).uniform_(*self.saturation)
         factor = factor.reshape(-1,1).repeat(1, self.stack_size).reshape(-1)
         x[:, 1, :, :] = torch.clamp(x[:, 1, :, :]
                                     * factor.view(len(x), 1, 1), 0, 1)

@@ -7,7 +7,7 @@ import torch.nn.functional as F
 from nik_utils import make_env, Storage, orthogonal_init
 from models_ppo import Flatten, Nature_Encoder, xavier_uniform_init
 from models_ppo import ResidualBlock, Empala_Encoder, Policy
-from data_aug import grayscale, color_jitter, random_cutout
+from data_aug import RandGray, random_color_jitter, random_cutout
 from time import time
 from TransformLayer import ColorJitterLayer
 from torch.distributions import Beta
@@ -40,14 +40,6 @@ print("Encoder used",encoder_type)
 print("Augumentation used",data_aug)
 print("Mixreg?" ,do_mixreg)
 print("Game",game)
-transform_module = nn.Sequential(ColorJitterLayer(brightness=0.4, 
-                                                  contrast=0.4,
-                                                  saturation=0.4, 
-                                                  hue=0.5, 
-                                                  p=1.0, 
-                                                  batch_size=num_envs,
-                                                  stack_size=1))
-
 
 # Define environment
 # check the utils.py file for info on arguments
@@ -91,7 +83,13 @@ device = torch.device('cpu')
 
 # Change the first observations to desired augmentation
 if data_aug == 'grayscale':
-  obs = grayscale(obs,device)
+  obs = np.zeros((nenv,) + env.observation_space.shape, dtype=env.observation_space.dtype.name)
+  obs[:] = env.reset()
+
+  # Do the grayscale and transfer to tensor
+  augs_funcs = RandGray(batch_size=num_envs, p_rand=0.4) # added
+  obs = augs_funcs.do_augmentation(obs)
+  obs = torch.from_numpy(obs)
 elif data_aug == 'random_cutout':
   # Initialize as a numpy array then convert to tensor
   obs = np.zeros((nenv,) + env.observation_space.shape, dtype=env.observation_space.dtype.name)
@@ -101,7 +99,7 @@ elif data_aug == 'random_cutout':
   obs = random_cutout(obs,12,24)
   obs = torch.from_numpy(obs)
 elif data_aug == 'color_jitter':
-  color_jitter(obs)
+  obs = random_color_jitter(obs,p=0.4)
 
 
 # There is a mismatch from the repo, there the observations are initialized as numpy array
@@ -137,13 +135,13 @@ while step < total_steps:
     # Make augmented transformation, probably possible to do this another way, like in a class to avoid the if statements
     if data_aug == 'grayscale':
       obs = torch.from_numpy(next_obs)
-      obs = grayscale(obs,device)
+      obs = augs_funcs.do_augmentation(obs)
     elif data_aug == 'random_cutout':
-      obs = random_cutout(next_obs,12,24)
+      obs = random_cutout(next_obs,12,24) # change to 6,18 in future runs.
       obs = torch.from_numpy(obs)
     elif data_aug == 'color_jitter':
       obs = torch.from_numpy(next_obs)
-      color_jitter(obs)
+      obs = random_color_jitter(obs,p=0.4)
     else:
       obs = torch.from_numpy(next_obs)
 
