@@ -6,3 +6,21 @@ Loaded module: cudnn/v7.0-prod-cuda8
 Loaded module: ffmpeg/4.2.2
 WARNING: You are using pip version 19.2.3, however version 20.3 is available.
 You should consider upgrading via the 'pip install --upgrade pip' command.
+Traceback (most recent call last):
+  File "train_ppo.py", line 207, in <module>
+    torch.nn.utils.clip_grad_norm_(policy.parameters(), grad_eps) # added
+  File "/zhome/09/9/144141/.local/lib/python3.8/site-packages/torch/nn/utils/clip_grad.py", line 36, in clip_grad_norm_
+    total_norm = torch.norm(torch.stack([torch.norm(p.grad.detach(), norm_type).to(device) for p in parameters]), norm_type)
+  File "/zhome/09/9/144141/.local/lib/python3.8/site-packages/torch/nn/utils/clip_grad.py", line 36, in <listcomp>
+    total_norm = torch.norm(torch.stack([torch.norm(p.grad.detach(), norm_type).to(device) for p in parameters]), norm_type)
+  File "/zhome/09/9/144141/.local/lib/python3.8/site-packages/torch/functional.py", line 1293, in norm
+    return _VF.norm(input, p, dim=_dim, keepdim=keepdim)  # type: ignore
+KeyboardInterrupt
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.

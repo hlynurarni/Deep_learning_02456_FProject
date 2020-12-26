@@ -1,0 +1,8 @@
+Loaded dependency [gcc/8.4.0]: binutils/2.34
+Loaded dependency [python3/3.8.2]: gcc/8.4.0
+Loaded module: python3/3.8.2
+Loaded module: cuda/8.0
+Loaded module: cudnn/v7.0-prod-cuda8
+Loaded module: ffmpeg/4.2.2
+WARNING: You are using pip version 19.2.3, however version 20.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
