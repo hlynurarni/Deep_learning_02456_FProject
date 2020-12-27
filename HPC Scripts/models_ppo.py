@@ -44,6 +44,8 @@ class ResidualBlock(nn.Module):
         out = self.conv2(out)
         return out + x
 
+# Reference for impala block https://github.com/joonleesky/train-procgen-pytorch
+# Reference for code snippet used: https://github.com/joonleesky/train-procgen-pytorch/blob/1678e4a9e2cb8ffc3772ecb3b589a3e0e06a2281/common/model.py#L94
 class ImpalaBlock(nn.Module):
     def __init__(self, in_channels, out_channels):
         super(ImpalaBlock, self).__init__()

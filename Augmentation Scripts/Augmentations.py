@@ -1,3 +1,14 @@
+
+# THIS FILE IS NOT USED
+
+
+
+
+
+
+# The foundation for the augmentation code is taken from https://github.com/MishaLaskin/rad
+# Under the python file https://github.com/MishaLaskin/rad/blob/master/data_augs.py, implementation of the code can be seen.
+
 class Center_Crop(object):
     def __init__(self, 
                  *_args, 
@@ -76,7 +87,8 @@ def imshow(img):
     plt.imshow(np.transpose(img, (1, 2, 0)))
 
 
-# Att the path to our repo raw file of TransformLayer
+
+# Ref: taken from: https://github.com/MishaLaskin/rad/blob/1246bfd6e716669126e12c1f02f393801e1692c1/TransformLayer.py#L87
 from TransformLayer import ColorJitterLayer
 def random_color_jitter(imgs):
     """

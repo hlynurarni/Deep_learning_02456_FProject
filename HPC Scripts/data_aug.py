@@ -1,3 +1,6 @@
+# The foundation for the augmentation code is taken from https://github.com/MishaLaskin/rad
+# Under the python file https://github.com/MishaLaskin/rad/blob/master/data_augs.py, implementation of the code can be seen.
+
 from TransformLayer import ColorJitterLayer
 import torch.nn as nn
 import torch.nn.functional as F
