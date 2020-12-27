@@ -6,4 +6,4 @@ A very useful code for setup and bookkeeping was given by the supervisor and, th
 ](https://github.com/joonleesky/train-procgen-pytorch)
 
 
-Notebook with code that can recreate the results are in this link <nbviewer> 
+Notebook inclduing the code to recreated the results can be seen in this [link](https://nbviewer.jupyter.org/github/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb). If there is interest to see the jupyter notebook file it can be found [here](https://github.com/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb).
