@@ -7,3 +7,7 @@ A very useful code for setup and bookkeeping was given by the supervisor and, th
 
 
 Notebook including the code to recreated the results can be seen in this [link](https://nbviewer.jupyter.org/github/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb). If there is interest to see the jupyter notebook file it can be found [here](https://github.com/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb).
+
+The presentation poster can be found [here](https://github.com/hlynurarni/Deep_learning_02456_FProject/blob/master/02456-Poster-PPO.pdf).
+
+![PPO presentation](02456-Poster-PPO.png)
