@@ -1,3 +1,5 @@
+# THis code is a copy of https://raw.githubusercontent.com/nicklashansen/ppo-procgen-utils/main/utils.py
+
 import contextlib
 import os
 from abc import ABC, abstractmethod
