@@ -6,7 +6,9 @@ A very useful code for setup and bookkeeping was given by the supervisor and, th
 ](https://github.com/joonleesky/train-procgen-pytorch)
 
 
-Notebook including the code to recreated the results can be seen in this [link](https://nbviewer.jupyter.org/github/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb). If there is interest to see the jupyter notebook file it can be found [here](https://github.com/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb).
+Notebook including the code to recreate the results can be found in this [link](https://nbviewer.jupyter.org/github/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb). If there is interest to see the jupyter notebook file, it can be found [here](https://github.com/hlynurarni/Deep_learning_02456_FProject/blob/master/Notebooks_turnin/PPO_notebook_combined.ipynb).
+
+![Notebook Layout](Notebook_layout.png)
 
 The presentation poster can be found [here](https://github.com/hlynurarni/Deep_learning_02456_FProject/blob/master/02456-Poster-PPO.pdf).
 
